@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crisck | Tecnologia que traduz o mundo</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
+
+body{
+  background:#000;
+  color:#fff;
+  overflow-x:hidden;
+  opacity:0;
+  transform:scale(1.02);
+  transition:opacity 0.75s ease, transform 0.75s ease, filter 0.75s ease;
+  filter:blur(18px);
+}
+
+body.is-ready{
+  opacity:1;
+  transform:scale(1);
+  filter:blur(0);
+}
+
+body.reopening{
+  transform:translateY(32px) scale(0.98);
+  filter:blur(22px);
+}
+
+body.is-leaving{
+  opacity:0;
+  transform:translateY(-18px) scale(1.01);
+  filter:blur(12px);
+}
+
+nav,
+.hero-content,
+footer{
+  opacity:0;
+  transform:translateY(24px);
+  transition:opacity 0.7s ease, transform 0.7s ease;
+}
+
+body.is-ready nav,
+body.is-ready .hero-content,
+body.is-ready footer{
+  opacity:1;
+  transform:translateY(0);
+}
+
+body.is-ready .hero-content{
+  transition-delay:0.15s;
+}
+
+body.is-ready footer{
+  transition-delay:0.3s;
+}
+
+/* NAV */
+nav{
+  position:fixed;
+  width:100%;
+  padding:20px;
+  display:flex;
+  justify-content:center;
+  background:rgba(0,0,40,0.6);
+  backdrop-filter:blur(12px);
+  z-index:1000;
+}
+
+/* HERO */
+.hero{
+  height:100vh;
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,0.6), #000),
+    url("https://images.unsplash.com/photo-1526378722440-4a7b2e5a0b8c");
+  background-size:cover;
+  background-position:center;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+}
+
+.hero{
+position: relative;
+height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+text-align: center;
+overflow: hidden;
+}
+
+/* FUNDO COM IMAGEM */
+.hero-bg{
+position: absolute;
+width: 110%;
+height: 110%;
+background: url(ChatGPT\ Image\ 21\ de\ abr.\ de\ 2026\,\ 20_36_54.png) center/cover no-repeat;
+animation: zoomBg 15s ease-in-out infinite alternate;
+filter: brightness(0.5);
+transform-origin:center;
+transition:transform 0.9s ease, filter 0.9s ease;
+}
+
+body.reopening .hero-bg{
+transform:scale(1.08);
+filter:brightness(0.32);
+}
+
+body.is-ready .hero-bg{
+filter:brightness(0.5);
+}
+
+/* OVERLAY AZUL PREMIUM */
+.hero::after{
+content: "";
+position: absolute;
+width: 100%;
+height: 100%;
+background: radial-gradient(circle at left, rgba(0,0,128,0.6), transparent 60%);
+}
+
+/* CONTEÚDO NA FRENTE */
+.hero-content{
+position: relative;
+z-index: 2;
+max-width: 800px;
+padding: 0 12px;
+}
+
+.hero h1{
+font-size: clamp(2.4rem, 6vw, 3.8rem);
+background: linear-gradient(90deg,#fff,#7aa2ff);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+line-height: 1.05;
+}
+
+.hero p{
+margin-top: 10px;
+color: #b3c7ff;
+font-size: clamp(1rem, 2.2vw, 1.15rem);
+}
+
+/* ANIMAÇÃO */
+@keyframes zoomBg{
+from{
+transform: scale(1);
+}
+to{
+transform: scale(0.9);
+}
+}
+
+.btn{
+  margin-top:30px;
+  padding:15px 35px;
+  border-radius:999px;
+  border:none;
+  background:linear-gradient(135deg,#000080,#1e3aff);
+  color:#fff;
+  cursor:pointer;
+  font-weight:600;
+  transition:0.3s;
+}
+
+.btn:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 25px rgba(30,58,255,0.7);
+}
+
+/* SECTIONS */
+.section{
+  padding:120px 20px;
+  text-align:center;
+}
+
+.section h2{
+  font-size:clamp(2rem, 5vw, 2.5rem);
+  margin-bottom:20px;
+}
+
+.section p{
+  color:#9fb3ff;
+  max-width:600px;
+  margin:auto;
+  line-height:1.7;
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:30px;
+  margin-top:60px;
+}
+
+.card{
+  background:rgba(0,0,40,0.6);
+  border:1px solid rgba(30,58,255,0.3);
+  padding:30px;
+  border-radius:20px;
+  backdrop-filter:blur(10px);
+  transition:0.4s;
+}
+
+.card:hover{
+  transform:translateY(-10px);
+  box-shadow:0 0 30px rgba(30,58,255,0.6);
+}
+
+/* IMAGE BLOCKS */
+.image-section{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:center;
+  gap:28px;
+  padding:80px 20px;
+}
+
+.image-section img{
+  width:100%;
+  max-width:500px;
+  border-radius:20px;
+}
+
+.image-text{
+  flex:1;
+  padding:20px;
+  min-width:280px;
+}
+
+/* OFFER */
+.offer{
+  background:linear-gradient(135deg,#000080,#1e3aff);
+  margin:80px 20px;
+  padding:80px 20px;
+  border-radius:30px;
+  text-align:center;
+}
+
+/* ANIMATION */
+.hidden{
+  opacity:0;
+  transform:translateY(40px);
+  transition:all 1s;
+}
+
+.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:40px;
+  color:#7a8cff;
+}
+.logo{
+font-size: 22px;
+font-weight: 700;
+letter-spacing: 4px;
+background: linear-gradient(90deg, #ffffff, #4f6cff, #1e3aff);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+text-transform: uppercase;
+transition: 0.3s;
+}
+
+.logo:hover{
+text-shadow: 0 0 15px rgba(79,108,255,0.8);
+}
+.btn-animado{
+position: relative;
+display: inline-block;
+padding: 15px 35px;
+border-radius: 999px;
+background: linear-gradient(135deg,#000080,#1e3aff);
+color: #fff;
+text-decoration: none;
+font-weight: 600;
+overflow: hidden;
+transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+/* HOVER */
+.btn-animado:hover{
+transform: scale(1.05);
+box-shadow: 0 0 25px rgba(30,58,255,0.7);
+}
+
+/* CLIQUE (efeito "pressionado") */
+.btn-animado:active{
+transform: scale(0.95);
+box-shadow: 0 0 10px rgba(30,58,255,0.4);
+}
+
+/* RIPPLE (onda) */
+.btn-animado span{
+position: absolute;
+border-radius: 50%;
+transform: scale(0);
+animation: ripple 0.6s linear;
+background: rgba(255,255,255,0.4);
+}
+
+/* ANIMAÇÃO DA ONDA */
+@keyframes ripple{
+to{
+transform: scale(4);
+opacity: 0;
+}
+}
+
+@media (max-width: 900px){
+  nav{
+    padding:16px 18px;
+  }
+
+  .hero{
+    min-height:100svh;
+    padding:96px 20px 48px;
+  }
+
+  .hero-bg{
+    width:120%;
+    height:120%;
+  }
+
+  .section{
+    padding:88px 20px;
+  }
+
+  .image-section{
+    padding:56px 20px;
+  }
+
+  .image-text{
+    padding:8px 4px 0;
+    text-align:center;
+  }
+
+  .offer{
+    margin:56px 16px;
+    padding:56px 20px;
+  }
+
+  .grid{
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+    margin-top:36px;
+  }
+}
+
+@media (max-width: 640px){
+  .logo{
+    font-size:18px;
+    letter-spacing:3px;
+  }
+
+  .hero{
+    padding:88px 16px 40px;
+  }
+
+  .hero-content{
+    max-width:100%;
+    padding:0;
+  }
+
+  .hero h1{
+    font-size:clamp(2rem, 10vw, 2.9rem);
+  }
+
+  .hero p{
+    font-size:0.98rem;
+    line-height:1.6;
+  }
+
+  .section{
+    padding:72px 16px;
+  }
+
+  .section h2{
+    font-size:1.8rem;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+    gap:16px;
+    margin-top:28px;
+  }
+
+  .card{
+    padding:22px 18px;
+  }
+
+  .image-section{
+    padding:44px 16px;
+    gap:18px;
+  }
+
+  .image-section img{
+    max-width:100%;
+  }
+
+  .image-text{
+    min-width:0;
+  }
+
+  .image-text h2{
+    font-size:1.6rem;
+    margin-bottom:10px;
+  }
+
+  .offer{
+    margin:44px 12px;
+    padding:44px 18px;
+    border-radius:24px;
+  }
+
+  .offer h2{
+    font-size:1.9rem;
+  }
+
+  .btn,
+  .btn-animado{
+    width:100%;
+    max-width:320px;
+    padding:15px 24px;
+    text-align:center;
+    justify-content:center;
+  }
+
+  footer{
+    padding:28px 16px 36px;
+    line-height:1.6;
+  }
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+  <h1><nav>
+  <h1 class="logo">CRISCK</h1>
+</nav>
+</h1>
+
+
+<section class="hero">
+  <div class="hero-bg"></div>
+
+  <div class="hero-content">
+    <h1>O mundo inteiro no seu pulso</h1>
+    <p>Tradução em tempo real com tecnologia inteligente</p>
+    <a href="produto.html" class="btn-animado">comprar</a>
+  </div>
+</section>
+
+
+<section class="section hidden">
+  <h2>Uma nova forma de se comunicar</h2>
+  <p>Chega de barreiras. A Crisck conecta você com qualquer pessoa no mundo instantaneamente.</p>
+</section>
+
+<section class="image-section hidden">
+  <img src="ChatGPT Image 21 de abr. de 2026, 21_09_41.png" alt="">
+  <div class="image-text">
+    <h2>Utilize da tecnologia a seu favor</h2>
+    <p>Fale nos locais, peça informações e explore sem medo.</p>
+  </div>
+</section>
+
+<section class="image-section hidden">
+   <img src="ChatGPT Image 21 de abr. de 2026, 21_08_39.png" alt="" srcset="">
+  <div class="image-text">
+    <h2>Ideal para estudos e intercâmbio</h2>
+    <p>Aprenda novos idiomas naturalmente. </p>
+  </div>
+ 
+</section>
+
+<section class="image-section hidden">
+  <img src="ChatGPT Image 21 de abr. de 2026, 21_18_28.png" alt="" srcset="">
+  <div class="image-text">
+    <h2>Essencial para negócios</h2>
+     <p>Negocie com qualquer pessoa no mundo sem limitações de idiomas.</p> 
+  </div>
+</section>
+
+<section class="section hidden">
+  <h2>Como funciona</h2>
+  <div class="grid">
+    <div class="card">Fale normalmente</div>
+    <div class="card">A pulseira capta sua voz</div>
+    <div class="card">Tradução instantânea</div>
+    <div class="card">Comunicação perfeita</div>
+  </div>
+</section>
+
+<section class="offer hidden">
+  <h2>Oferta Especial</h2>
+  <p><strong>R$ 399,99</strong></p>
+  <p>Garantia de 3 meses</p>
+  <a href="produto.html" class="btn-animado">garantir agora</a>
+</section>
+
+<footer>
+  © 2026 Lucas Brito, Igor kaick - Tecnologia Inteligente
+</footer>
+
+<script>
+const body = document.body;
+const returnKey = 'crisck-return';
+const navEntries = performance.getEntriesByType('navigation');
+const openedFromHistory = navEntries.length && navEntries[0].type === 'back_forward';
+const reopening = sessionStorage.getItem(returnKey) === 'produto' || openedFromHistory;
+
+if (reopening) {
+  body.classList.add('reopening');
+  sessionStorage.removeItem(returnKey);
+}
+
+requestAnimationFrame(() => {
+  requestAnimationFrame(() => {
+    body.classList.add('is-ready');
+  });
+});
+
+if (reopening) {
+  setTimeout(() => {
+    body.classList.remove('reopening');
+  }, 850);
+}
+
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('show');
+    }
+  });
+});
+
+document.querySelectorAll('.hidden').forEach(el=>observer.observe(el));
+
+const buttons = document.querySelectorAll(".btn-animado");
+
+buttons.forEach(btn => {
+  btn.addEventListener("click", function(e){
+    e.preventDefault();
+
+    const circle = document.createElement("span");
+    const diameter = Math.max(this.clientWidth, this.clientHeight);
+    const radius = diameter / 2;
+    const rect = this.getBoundingClientRect();
+    const href = this.getAttribute("href");
+
+    circle.style.width = circle.style.height = `${diameter}px`;
+    circle.style.left = `${e.clientX - rect.left - radius}px`;
+    circle.style.top = `${e.clientY - rect.top - radius}px`;
+
+    this.appendChild(circle);
+    sessionStorage.setItem(returnKey, 'produto');
+    body.classList.remove('is-ready');
+    body.classList.add('is-leaving');
+
+    setTimeout(() => {
+      circle.remove();
+    }, 600);
+
+    setTimeout(() => {
+      window.location.href = href;
+    }, 380);
+  });
+});
+
+
+</script>
+
+</body>
+</html>
