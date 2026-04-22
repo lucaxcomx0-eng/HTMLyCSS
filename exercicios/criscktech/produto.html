@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produto - Crisck</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <style>
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    body{
+      background:#000;
+      color:#fff;
+      font-family:Arial,sans-serif;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:32px 20px;
+      opacity:0;
+      transform:translateY(24px) scale(0.98);
+      filter:blur(14px);
+      transition:opacity 0.6s ease, transform 0.6s ease, filter 0.6s ease;
+      overflow:hidden;
+      position:relative;
+    }
+
+    body.is-ready{
+      opacity:1;
+      transform:translateY(0) scale(1);
+      filter:blur(0);
+    }
+
+    body.is-leaving{
+      opacity:0;
+      transform:translateY(-18px) scale(1.01);
+      filter:blur(12px);
+    }
+
+    body::before{
+      content:"";
+      position:absolute;
+      inset:-20%;
+      background:
+        radial-gradient(circle at top left, rgba(30,58,255,0.22), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(0,128,255,0.18), transparent 30%),
+        linear-gradient(135deg, #02030a 0%, #050814 45%, #000 100%);
+      z-index:0;
+    }
+
+    .produto-card{
+      width:min(100%, 1120px);
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:36px;
+      align-items:center;
+      background:rgba(9,15,54,0.72);
+      border:1px solid rgba(86,118,255,0.35);
+      border-radius:32px;
+      padding:36px;
+      box-shadow:0 24px 60px rgba(0,0,0,0.35);
+      backdrop-filter:blur(16px);
+      position:relative;
+      z-index:1;
+    }
+
+    .produto-visual{
+      position:relative;
+      min-height:520px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .orbita{
+      position:absolute;
+      border-radius:50%;
+      filter:blur(2px);
+      animation:flutuar 8s ease-in-out infinite;
+    }
+
+    .orbita-1{
+      width:320px;
+      height:320px;
+      background:radial-gradient(circle, rgba(38,87,255,0.38), rgba(38,87,255,0));
+      animation-delay:0s;
+    }
+
+    .orbita-2{
+      width:430px;
+      height:430px;
+      border:1px solid rgba(124,163,255,0.18);
+      animation:orbitar 14s linear infinite;
+    }
+
+    .produto-imagem{
+      width:min(100%, 440px);
+      filter:drop-shadow(0 30px 45px rgba(0,0,0,0.45));
+      animation:produtoFloat 5.5s ease-in-out infinite;
+      position:relative;
+      z-index:1;
+    }
+
+    .produto-info{
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+
+    .eyebrow{
+      color:#85a9ff;
+      text-transform:uppercase;
+      letter-spacing:0.28em;
+      font-size:0.75rem;
+      font-weight:700;
+    }
+
+    h1{
+      font-size:clamp(2.3rem, 5vw, 4.4rem);
+      line-height:1.02;
+      max-width:10ch;
+    }
+
+    .lead{
+      color:#c3d0ff;
+      line-height:1.7;
+      font-size:1.05rem;
+      max-width:54ch;
+    }
+
+    .selo{
+      display:inline-flex;
+      align-items:center;
+      width:max-content;
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(74,109,255,0.12);
+      border:1px solid rgba(133,169,255,0.16);
+      color:#dce6ff;
+      font-size:0.92rem;
+    }
+
+    .beneficios{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:14px;
+      margin-top:8px;
+    }
+
+    .beneficio{
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(133,169,255,0.12);
+      border-radius:18px;
+      padding:16px 18px;
+      color:#d8e2ff;
+      line-height:1.5;
+    }
+
+    .beneficio strong{
+      display:block;
+      margin-bottom:6px;
+      color:#fff;
+    }
+
+    .acoes{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      margin-top:12px;
+    }
+
+    .btn{
+      padding:15px 30px;
+      border-radius:999px;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      transition:transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    .btn-whatsapp{
+      background:linear-gradient(135deg,#000080,#1e3aff);
+      color:#fff;
+      font-weight:700;
+      box-shadow:0 18px 35px rgba(30,58,255,0.25);
+    }
+
+    .btn-secundario{
+      border:1px solid rgba(133,169,255,0.28);
+      color:#dbe5ff;
+      background:rgba(255,255,255,0.03);
+    }
+
+    .btn:hover{
+      transform:translateY(-2px);
+      box-shadow:0 0 25px rgba(30,58,255,0.45);
+    }
+
+    @keyframes produtoFloat{
+      0%,100%{
+        transform:translateY(0) rotate(-4deg);
+      }
+      50%{
+        transform:translateY(-18px) rotate(2deg);
+      }
+    }
+
+    @keyframes flutuar{
+      0%,100%{
+        transform:translateY(0) scale(1);
+      }
+      50%{
+        transform:translateY(-22px) scale(1.06);
+      }
+    }
+
+    @keyframes orbitar{
+      from{
+        transform:rotate(0deg) scale(1);
+      }
+      to{
+        transform:rotate(360deg) scale(1.04);
+      }
+    }
+
+    @media (max-width: 900px){
+      .produto-card{
+        grid-template-columns:1fr;
+        padding:24px;
+      }
+
+      .produto-visual{
+        min-height:360px;
+      }
+
+      .produto-imagem{
+        width:min(100%, 320px);
+      }
+
+      .beneficios{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width: 640px){
+      body{
+        padding:16px 12px;
+      }
+
+      .produto-card{
+        gap:20px;
+        padding:18px;
+        border-radius:24px;
+      }
+
+      .produto-visual{
+        min-height:280px;
+      }
+
+      .orbita-1{
+        width:220px;
+        height:220px;
+      }
+
+      .orbita-2{
+        width:290px;
+        height:290px;
+      }
+
+      .produto-imagem{
+        width:min(100%, 240px);
+      }
+
+      .produto-info{
+        gap:14px;
+      }
+
+      .eyebrow{
+        letter-spacing:0.18em;
+        font-size:0.68rem;
+      }
+
+      h1{
+        font-size:clamp(1.9rem, 9vw, 2.7rem);
+        max-width:100%;
+      }
+
+      .lead{
+        font-size:0.98rem;
+      }
+
+      .selo{
+        width:100%;
+        justify-content:center;
+        text-align:center;
+      }
+
+      .beneficio{
+        padding:14px 15px;
+      }
+
+      .acoes{
+        flex-direction:column;
+      }
+
+      .btn{
+        width:100%;
+      }
+    }
+    /* RESPONSIVIDADE GLOBAL */
+.container{
+width: 100%;
+max-width: 1200px;
+margin: auto;
+padding: 20px;
+}
+
+img{
+width: 100%;
+height: auto;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+nav{
+padding: 15px;
+}
+
+.hero h1{
+font-size: 2rem;
+}
+
+.hero p{
+font-size: 1rem;
+}
+
+.menu{
+display: none;
+}
+
+.container{
+flex-direction: column;
+text-align: center;
+}
+
+}
+
+  </style>
+</head>
+<body>
+  <main class="produto-card">
+    <section class="produto-visual">
+      <div class="orbita orbita-1"></div>
+      <div class="orbita orbita-2"></div>
+      <img src="ChatGPT Image 22 de abr. de 2026, 19_47_18.png" alt="" srcset="">
+    </section>
+
+    <section class="produto-info">
+      <span class="eyebrow">Tecnologia no pulso</span>
+      <h1>Crisck traduz conversas em tempo real</h1>
+      <p class="lead">Uma pulseira inteligente criada para viagens, estudos, atendimento e negocios. Voce fala naturalmente e a tecnologia ajuda a transformar cada conversa em conexao imediata.</p>
+      <span class="selo">Venda direta com atendimento rapido no WhatsApp</span>
+
+      <div class="beneficios">
+        <div class="beneficio">
+          <strong>Traducao instantanea</strong>
+          Ideal para falar com pessoas de outros idiomas sem travar a conversa.
+        </div>
+        <div class="beneficio">
+          <strong>Visual premium</strong>
+          Design moderno para gerar valor logo no primeiro impacto.
+        </div>
+        <div class="beneficio">
+          <strong>Uso versatil</strong>
+          Boa para turismo, reunioes, intercambios e atendimento ao cliente.
+        </div>
+        <div class="beneficio">
+          <strong>Contato imediato</strong>
+          Um clique leva o cliente direto para negociar com voce no WhatsApp.
+        </div>
+      </div>
+
+      <div class="acoes">
+        <a href="https://wa.me/5587991770741?text=Ola%2C%20quero%20comprar%20a%20pulseira%20Crisck." class="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">Falar no WhatsApp</a>
+        <a href="index.html" class="btn btn-secundario" id="voltar">Voltar para o inicio</a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const body = document.body;
+    const returnKey = 'crisck-return';
+    const voltar = document.getElementById('voltar');
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        body.classList.add('is-ready');
+      });
+    });
+
+    voltar.addEventListener('click', event => {
+      event.preventDefault();
+      sessionStorage.setItem(returnKey, 'produto');
+      body.classList.remove('is-ready');
+      body.classList.add('is-leaving');
+
+      setTimeout(() => {
+        window.location.href = voltar.href;
+      }, 320);
+    });
+  </script>
+</body>
+</html>
